@@ -17,23 +17,26 @@ phases:
 
   pre_build:
     commands:
-      - echo Building React App...
+      - echo "Building React App..."
       - cd frontend/code
       - npm install
       - npm run build
       - cd ../../
+      - echo "React App build completed."
 
   build:
     commands:
-      - echo CDK Synth...
+      - echo "CDK Synth..."
       - cd frontend/cdk
       - cdk synth
+      - echo "CDK Synth completed."
 
   post_build:
     commands:
-      - echo Deploying React App with CDK...
+      - echo "Deploying React App with CDK..."
       - cdk deploy --all --require-approval never
+      - echo "CDK Deploy completed."
 
-artifacts:
-  files:
-    - "**/*"
+# artifacts:
+#   files:
+#     - "**/*"
