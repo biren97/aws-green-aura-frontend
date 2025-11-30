@@ -20,10 +20,10 @@ phases:
       - echo "Building React App..."
       - pwd
       - ls -la
-      - cd frontend/code
+      - cd code
       - npm install
       - npm run build
-      - cd ../../
+      - cd ..
       - echo "React App build completed."
 
   build:
