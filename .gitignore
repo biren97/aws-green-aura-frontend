@@ -1,3 +1,4 @@
 code/node_modules/
 code/.env
 cdk/.venv
+code/dist
