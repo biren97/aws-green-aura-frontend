@@ -18,6 +18,7 @@ phases:
   pre_build:
     commands:
       - echo "Building React App..."
+      - pwd
       - cd frontend/code
       - npm install
       - npm run build
