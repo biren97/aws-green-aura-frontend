@@ -8,6 +8,7 @@ from aws_cdk import (
     aws_s3_deployment as s3_deploy,
     CfnOutput,
     RemovalPolicy,
+    Duration,
 )
 from constructs import Construct
 
@@ -40,7 +41,7 @@ class FrontEndStack(Stack):
             self,
             "WebsiteDistribution",
             default_behavior=cloudfront.BehaviorOptions(
-                origin=origins.S3Origin(website_bucket),
+                origin=origins.S3BucketOrigin(website_bucket),
                 viewer_protocol_policy=cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 cache_policy=cloudfront.CachePolicy.CACHING_OPTIMIZED,
             ),
@@ -50,7 +51,7 @@ class FrontEndStack(Stack):
                     http_status=404,
                     response_http_status=200,
                     response_page_path="/index.html",
-                    ttl=None
+                     ttl=Duration.seconds(0),
                 )
             ]
         )
