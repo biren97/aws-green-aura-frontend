@@ -29,7 +29,9 @@ phases:
   build:
     commands:
       - echo "CDK Synth..."
-      - cd frontend/cdk
+      - pwd
+      - ls -la
+      - cd cdk
       - cdk synth
       - echo "CDK Synth completed."
 
