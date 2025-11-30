@@ -9,7 +9,7 @@ phases:
       # - yum install -y nodejs
 
       # Install Python dependencies
-      - echo Installing Python & CDK dependencies...
+      - echo "Installing Python & CDK dependencies..."
       - pip install --upgrade pip
       - pip install -r frontend/cdk/requirements.txt
       - npm install -g aws-cdk
