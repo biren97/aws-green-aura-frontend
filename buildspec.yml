@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # Install Node.js
+      - echo Installing Node.js...
+      - curl -sL https://rpm.nodesource.com/setup_18.x | bash -
+      - yum install -y nodejs
+
+      # Install Python dependencies
+      - echo Installing Python & CDK dependencies...
+      - pip install --upgrade pip
+      - pip install -r frontend/cdk/requirements.txt
+      - npm install -g aws-cdk
+
+  pre_build:
+    commands:
+      - echo Building React App...
+      - cd frontend/code
+      - npm install
+      - npm run build
+      - cd ../../
+
+  build:
+    commands:
+      - echo CDK Synth...
+      - cd frontend/cdk
+      - cdk synth
+
+  post_build:
+    commands:
+      - echo Deploying React App with CDK...
+      - cdk deploy --all --require-approval never
+
+artifacts:
+  files:
+    - "**/*"

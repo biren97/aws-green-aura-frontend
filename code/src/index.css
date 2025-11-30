@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(55, 65, 81, 0.7);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 85, 99, 0.9);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-color: rgba(55, 65, 81, 0.7) rgba(15, 23, 42, 0.5);
+  scrollbar-width: thin;
+}
+
+* {
+  @apply box-border;
+}
+
+body {
+  @apply bg-accent-dark text-gray-100;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-3 py-2 rounded-lg bg-primary-500 hover:bg-primary-600 text-white font-semibold transition duration-200 text-sm;
+  }
+
+  .btn-secondary {
+    @apply px-3 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white font-semibold transition duration-200 text-sm;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-xs;
+  }
+
+  .card {
+    @apply bg-gray-800 rounded-lg border border-gray-700 p-4 hover:border-primary-500 transition duration-200;
+  }
+}
