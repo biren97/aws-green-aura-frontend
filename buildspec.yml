@@ -19,6 +19,7 @@ phases:
     commands:
       - echo "Building React App..."
       - pwd
+      - ls -la
       - cd frontend/code
       - npm install
       - npm run build
