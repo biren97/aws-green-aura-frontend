@@ -4,9 +4,9 @@ phases:
   install:
     commands:
       # Install Node.js
-      - echo Installing Node.js...
-      - curl -sL https://rpm.nodesource.com/setup_18.x | bash -
-      - yum install -y nodejs
+      # - echo Installing Node.js...
+      # - curl -sL https://rpm.nodesource.com/setup_18.x | bash -
+      # - yum install -y nodejs
 
       # Install Python dependencies
       - echo Installing Python & CDK dependencies...
