@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import HomeLogo from '../components/HomeLogo.jsx'
 import { TrendingUp, Target, Users, Zap, ArrowRight, Menu, X, Coffee } from 'lucide-react'
 const API = import.meta.env.VITE_API_BASE_URL;
 
@@ -72,12 +73,13 @@ const Home = () => {
       <nav className="fixed top-0 w-full bg-accent-dark/95 backdrop-blur border-b border-gray-700 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">BA</span>
               </div>
               <h1 className="text-xl font-bold text-primary-500">Black Aura</h1>
-            </div>
+            </div> */}
+            <HomeLogo/>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { Mail, Lock, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react'
+import { Mail, Lock, AlertCircle, CheckCircle, ArrowLeft, Home } from 'lucide-react'
 import { authService } from '../services/endpoints'
+import HomeLogo from '../components/HomeLogo'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -60,15 +61,20 @@ const Login = () => {
   }
 
   return (
+    <div className="min-h-screen bg-accent-dark">
+      <div className="flex justify-between items-center h-16">
+        <HomeLogo />
+      </div>
+      
     <div className="min-h-screen bg-gradient-to-br from-accent-dark via-gray-900 to-accent-dark flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <button 
+        {/* <button 
           onClick={() => navigate('/')}
           className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary-500 mb-4"
         >
           <ArrowLeft size={18} />
           Back to Home
-        </button>
+        </button> */}
 
         <div className="card">
           <h1 className="text-2xl font-bold text-primary-500 mb-1">Welcome Back</h1>
@@ -159,6 +165,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+    </div>
     </div>
   )
 }
