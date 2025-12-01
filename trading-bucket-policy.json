@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::873811814700:role/FrontEndStack-CustomS3AutoDeleteObjectsCustomResour-6uRuqlwvPJ1U"
+            },
+            "Action": [
+                "s3:DeleteObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:PutBucketPolicy"
+            ],
+            "Resource": [
+                "arn:aws:s3:::trading-bucket-873811814700",
+                "arn:aws:s3:::trading-bucket-873811814700/*"
+            ]
+        },
+        {
+            "Sid": "AllowCloudFrontOACAccess",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::trading-bucket-873811814700/*",
+            "Condition": {
+                "StringEquals": {
+                    "AWS:SourceArn": "arn:aws:cloudfront::873811814700:distribution/E30ZIRVSCM62S1"
+                }
+            }
+        }
+    ]
+}
