@@ -1,11 +1,21 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { TrendingUp, Target, Users, Zap, ArrowRight, Menu, X } from 'lucide-react'
+import { TrendingUp, Target, Users, Zap, ArrowRight, Menu, X, Coffee } from 'lucide-react'
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const Home = () => {
+  const [coffee, setCoffee] = useState(null);
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const getCoffee = async () => {
+    try {
+      const res = await fetch(`${API}/scan_coffee`);
+      const data = await res.json();
+      setCoffee(data);
+    } catch (err) {
+      console.error("Error fetching coffee:", err);
+    }
+  };
   const features = [
     {
       icon: TrendingUp,
@@ -144,7 +154,14 @@ const Home = () => {
                 >
                   Already a member? Login
                 </button>
+                <button
+                  onClick={getCoffee}
+                  className="px-6 py-3 rounded-lg border border-gray-700 text-gray-300 hover:border-primary-500 hover:text-primary-500 transition font-semibold"
+                >
+                  coffee
+                </button>
               </div>
+              {coffee && <pre>{JSON.stringify(coffee, null, 2)}</pre>}
             </div>
 
             <div className="relative">
