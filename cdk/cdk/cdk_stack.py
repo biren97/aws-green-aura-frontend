@@ -38,14 +38,18 @@ class FrontEndStack(Stack):
         )
 
         # Create OAC (Recommended)
-        oac = cloudfront.OriginAccessControl(
-            self,
-            "OAC",
-            origin_access_control_name="frontend-oac",
-            signing_behavior=cloudfront.SigningBehavior.ALWAYS,
-            signing_protocol=cloudfront.SigningProtocol.SIGV4,
-            origin_access_control_origin_type=cloudfront.OriginAccessControlOriginType.S3
+        oac = cloudfront.CfnOriginAccessControl(
+        self,
+        "OAC",
+        origin_access_control_config=cloudfront.CfnOriginAccessControl.OriginAccessControlConfigProperty(
+            name="frontend-oac",
+            description="OAC for S3",
+            origin_access_control_origin_type="s3",
+            signing_behavior="always",
+            signing_protocol="sigv4"
+            )
         )
+
 
         # 2️⃣ Create CloudFront distribution
         distribution = cloudfront.Distribution(
@@ -65,6 +69,11 @@ class FrontEndStack(Stack):
                      ttl=Duration.seconds(0),
                 )
             ]
+        )
+        # Patch OAC into distribution (CloudFront requirement)
+        distribution.node.default_child.add_property_override(
+            "DistributionConfig.Origins.0.OriginAccessControlId",
+            oac.ref
         )
 
         # 3️⃣ Deploy React build files to S3
