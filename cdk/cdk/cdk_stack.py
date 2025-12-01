@@ -9,6 +9,7 @@ from aws_cdk import (
     CfnOutput,
     RemovalPolicy,
     Duration,
+    aws_cloudfront_origins as origins,
 )
 from constructs import Construct
 
@@ -34,6 +35,16 @@ class FrontEndStack(Stack):
             ),
             removal_policy=RemovalPolicy.DESTROY,
             auto_delete_objects=True,
+        )
+
+        # Create OAC (Recommended)
+        oac = cloudfront.OriginAccessControl(
+            self,
+            "OAC",
+            origin_access_control_name="frontend-oac",
+            signing_behavior=cloudfront.SigningBehavior.ALWAYS,
+            signing_protocol=cloudfront.SigningProtocol.SIGV4,
+            origin_access_control_origin_type=cloudfront.OriginAccessControlOriginType.S3
         )
 
         # 2️⃣ Create CloudFront distribution
