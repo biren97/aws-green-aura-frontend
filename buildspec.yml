@@ -18,11 +18,11 @@ phases:
 
   pre_build:
     commands:
-    - echo "****Setting up environment variables for React App****"
-    - echo "VITE_API_BASE_URL=$VITE_API_BASE_URL" >> .env.production
-    - echo "VITE_CALLBACK_URL=$VITE_CALLBACK_URL" >> .env.production
-    - echo "VITE_LOGOUT_REDIRECT_URL=$VITE_LOGOUT_REDIRECT_URL" >> .env.production
-    - echo "VITE_TOKEN_SIGN_IN_URL=$VITE_TOKEN_SIGN_IN_URL" >> .env.production
+      - echo "****Setting up environment variables for React App****"
+      - echo "VITE_API_BASE_URL=$VITE_API_BASE_URL" >> .env.production
+      - echo "VITE_CALLBACK_URL=$VITE_CALLBACK_URL" >> .env.production
+      - echo "VITE_LOGOUT_REDIRECT_URL=$VITE_LOGOUT_REDIRECT_URL" >> .env.production
+      - echo "VITE_TOKEN_SIGN_IN_URL=$VITE_TOKEN_SIGN_IN_URL" >> .env.production
       - echo "Building React App..."
       - pwd
       - ls -la
