@@ -38,6 +38,7 @@ phases:
       - pwd
       - ls -la
       - cd cdk
+      - cdk acknowledge 34892
       - cdk synth
       - echo "CDK Synth completed."
 
