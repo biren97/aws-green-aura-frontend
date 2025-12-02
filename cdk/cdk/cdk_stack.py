@@ -21,7 +21,9 @@ class FrontEndStack(Stack):
         # Get the React build directory path
         # This assumes the build output is in ../code/dist
         # os.getcwd(),"../..","code","dist"
-        react_build_dir = Path(__file__).parent.parent / "code" / "dist"
+        # react_build_dir = Path(__file__).parent.parent.parent / "code" / "dist"
+        repo_root = Path(__file__).parents[2].resolve()  # goes from cdk/cdk/cdk_stack.py -> repo root
+        react_build_dir = repo_root / "code" / "dist"
         print("****************code path:",react_build_dir)
         # project_root = Path(__file__).resolve().parents[1]   # root/
         # react_build_dir = project_root / "code" / "dist"
