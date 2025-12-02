@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Mail, Lock, User, AlertCircle, ArrowLeft } from 'lucide-react'
-import { authService } from '../services/endpoints'
+import { registerUser } from '../services/authService'
 
 const Register = () => {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({ username: '', first_name: '', email: '', password: '', confirmPassword: '' })
+  const [formData, setFormData] = useState({ mobile_number: '', first_name: '', email: '', password: '', confirmPassword: '' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState('')
@@ -18,7 +18,7 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {}
-    if (!formData.username.trim()) newErrors.username = 'Username is required'
+    if (!formData.mobile_number.trim()) newErrors.mobile_number = 'Mobile number is required'
     if (!formData.first_name.trim()) newErrors.first_name = 'Name is required'
     if (!formData.email.includes('@')) newErrors.email = 'Valid email is required'
     if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters'
@@ -37,8 +37,8 @@ const Register = () => {
 
     setLoading(true)
     try {
-      await authService.register({
-        username: formData.username,
+      await registerUser({
+        mobile: formData.mobile_number,
         email: formData.email,
         first_name: formData.first_name,
         password: formData.password,
@@ -92,19 +92,19 @@ const Register = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Username</label>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Mobile Number</label>
               <div className="relative">
                 <User className="absolute left-3 top-2.5 text-gray-500" size={16} />
                 <input
                   type="text"
-                  name="username"
-                  placeholder="john_doe"
-                  value={formData.username}
+                  name="mobile_number"
+                  placeholder="9876543210"
+                  value={formData.mobile_number}
                   onChange={handleChange}
                   className="input-field pl-9"
                 />
               </div>
-              {errors.username && <p className="text-red-400 text-xs mt-0.5">{errors.username}</p>}
+              {errors.mobile_number && <p className="text-red-400 text-xs mt-0.5">{errors.mobile_number}</p>}
             </div>
 
             <div>

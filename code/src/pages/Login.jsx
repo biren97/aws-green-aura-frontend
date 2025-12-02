@@ -7,7 +7,7 @@ import HomeLogo from '../components/HomeLogo'
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [formData, setFormData] = useState({ username: '', password: '' })
+  const [formData, setFormData] = useState({ mobile_number: '', password: '' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState('')
@@ -21,7 +21,7 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = {}
-    if (!formData.username) newErrors.username = 'Username is required'
+    if (!formData.mobile_number) newErrors.mobile_number = 'Mobile number is required'
     if (!formData.password) newErrors.password = 'Password is required'
     return newErrors
   }
@@ -37,7 +37,7 @@ const Login = () => {
 
     setLoading(true)
     try {
-      const response = await authService.login(formData.username, formData.password)
+      const response = await authService.login(formData.mobile_number, formData.password)
       localStorage.setItem('auth_token', response.data.access)
       navigate('/dashboard')
     } catch (error) {
@@ -96,19 +96,19 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-3 mb-4">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Username</label>
+              <label className="block text-xs font-medium text-gray-300 mb-1">Mobile Number</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-2.5 text-gray-500" size={16} />
                 <input
                   type="text"
-                  name="username"
-                  placeholder="your_username"
-                  value={formData.username}
+                  name="mobile_number"
+                  placeholder="your_mobile_number"
+                  value={formData.mobile_number}
                   onChange={handleChange}
                   className="input-field pl-9"
                 />
               </div>
-              {errors.username && <p className="text-red-400 text-xs mt-0.5">{errors.username}</p>}
+              {errors.mobile_number && <p className="text-red-400 text-xs mt-0.5">{errors.mobile_number}</p>}
             </div>
 
             <div>
