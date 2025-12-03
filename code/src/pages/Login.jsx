@@ -6,6 +6,7 @@ import HomeLogo from '../components/HomeLogo'
 const clientId = import.meta.env.VITE_USERPOOL_CLIENT_ID;
 const cognitoDomain = import.meta.env.VITE_COGNITO_DOMAIN;
 const redirectUri = import.meta.env.VITE_CALLBACK_URL;
+const API = import.meta.env.VITE_API_BASE_URL;
 
 const Login = () => {
   const navigate = useNavigate()
@@ -49,15 +50,24 @@ const Login = () => {
 
     setLoading(true)
     try {
-      console.log("Attempting login with:",formData.email, formData.password)
-      const response = login(formData.email, formData.password)
-      localStorage.setItem('auth_token', response.data.access)
-      navigate('/dashboard')
-    } catch (error) {
-      setServerError(error.response?.data?.detail || 'Login failed. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+        const res = await fetch(`${API}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
+        });
+
+    if (!res.ok) throw new Error("Login failed");
+
+    const data = await res.json();
+
+    localStorage.setItem("access_token", data.AccessToken);
+    localStorage.setItem("id_token", data.IdToken);
+    localStorage.setItem("refresh_token", data.RefreshToken);
+    setLoading(false)
+    navigate('/dashboard')
   }
 
   const handleDemoLogin = async () => {
