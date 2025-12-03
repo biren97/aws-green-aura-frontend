@@ -3,6 +3,9 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Mail, Lock, AlertCircle, CheckCircle, ArrowLeft, Home } from 'lucide-react'
 import { authService } from '../services/endpoints'
 import HomeLogo from '../components/HomeLogo'
+const clientId = import.meta.env.VITE_USERPOOL_CLIENT_ID;
+const cognitoDomain = import.meta.env.VITE_COGNITO_DOMAIN;
+const redirectUri = import.meta.env.VITE_CALLBACK_URL;
 
 const Login = () => {
   const navigate = useNavigate()
@@ -12,6 +15,14 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState('')
   const [successMessage] = useState(location.state?.message || '')
+
+  console.log("Login redirectUri:",redirectUri)
+  console.log("Login domain:",cognitoDomain)
+  console.log("Login clientId:",clientId)
+  const login = () => {
+   window.location.href = 
+      `${cognitoDomain}/login?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}`;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -28,6 +39,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log("Form Data on submit:",formData)
     const newErrors = validateForm()
     
     if (Object.keys(newErrors).length > 0) {
@@ -37,7 +49,8 @@ const Login = () => {
 
     setLoading(true)
     try {
-      const response = await authService.login(formData.mobile_number, formData.password)
+      console.log("Attempting login with:",formData.mobile_number, formData.password)
+      const response = login(formData.mobile_number, formData.password)
       localStorage.setItem('auth_token', response.data.access)
       navigate('/dashboard')
     } catch (error) {
