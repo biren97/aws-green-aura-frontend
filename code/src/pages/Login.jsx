@@ -10,7 +10,7 @@ const redirectUri = import.meta.env.VITE_CALLBACK_URL;
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [formData, setFormData] = useState({ mobile_number: '', password: '' })
+  const [formData, setFormData] = useState({ email: '', password: '' })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState('')
@@ -32,7 +32,7 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = {}
-    if (!formData.mobile_number) newErrors.mobile_number = 'Mobile number is required'
+    if (!formData.email) newErrors.email = 'Email is required'
     if (!formData.password) newErrors.password = 'Password is required'
     return newErrors
   }
@@ -49,8 +49,8 @@ const Login = () => {
 
     setLoading(true)
     try {
-      console.log("Attempting login with:",formData.mobile_number, formData.password)
-      const response = login(formData.mobile_number, formData.password)
+      console.log("Attempting login with:",formData.email, formData.password)
+      const response = login(formData.email, formData.password)
       localStorage.setItem('auth_token', response.data.access)
       navigate('/dashboard')
     } catch (error) {
@@ -114,14 +114,14 @@ const Login = () => {
                 <Mail className="absolute left-3 top-2.5 text-gray-500" size={16} />
                 <input
                   type="text"
-                  name="mobile_number"
-                  placeholder="your_mobile_number"
-                  value={formData.mobile_number}
+                  name="email"
+                  placeholder="your_email"
+                  value={formData.email}
                   onChange={handleChange}
                   className="input-field pl-9"
                 />
               </div>
-              {errors.mobile_number && <p className="text-red-400 text-xs mt-0.5">{errors.mobile_number}</p>}
+              {errors.email && <p className="text-red-400 text-xs mt-0.5">{errors.email}</p>}
             </div>
 
             <div>
